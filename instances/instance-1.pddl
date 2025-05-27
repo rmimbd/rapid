@@ -1,0 +1,76 @@
+(define (problem rapid-instance-1)
+    (:domain rapid)
+    
+    (:objects
+        safeA safeB - safe-location
+        affectedC affectedD - affected-location
+        medics - medical-support-team
+        rescuers - rescue-team
+        truck - freight-vehicle
+        bus minibus - transit-vehicle
+        relief-goods - resource
+    )
+    (:init
+        (at truck safeB)
+        (at bus safeB)
+        (at minibus safeA)
+        (at medics safeA)
+        (at rescuers safeA)
+        (needs-rescue affectedD)
+        (needs-medical-support affectedD)
+        (needs-evacuation affectedC)
+        (= (person-to-evacuate affectedC) 30)
+        (= (priority affectedC) 1)
+        (= (priority affectedD) 2)
+        (= (team-size medics) 3)
+        (= (team-size rescuers) 5)
+        (= (stock safeB relief-goods) 600)
+        (= (stock safeA relief-goods) 0)
+        (= (stock affectedC relief-goods) 0)
+        (= (stock affectedD relief-goods) 0)
+        (= (needs-resource affectedD relief-goods) 300)
+        (= (needs-resource affectedC relief-goods) 0)
+        (= (evacuating bus affectedC) 0)
+        (= (evacuating minibus affectedC) 0)
+        (= (evacuating bus affectedD) 0)
+        (= (evacuating minibus affectedD) 0)
+        (= (contains truck relief-goods) 0)
+        (= (capacity bus) 40)
+        (= (capacity minibus) 15)
+        (= (capacity truck) 500)
+        (= (distance safeA safeB) 35)
+        (= (distance safeB safeA) 35)
+        (= (distance safeA affectedC) 80)
+        (= (distance affectedC safeA) 80)
+        (= (distance safeA affectedD) 70)
+        (= (distance affectedD safeA) 70)
+        
+        (= (distance safeB affectedC) 45)
+        (= (distance affectedC safeB) 45)
+        (= (distance safeB affectedD) 55)
+        (= (distance affectedD safeB) 55)
+        
+        (= (per-unit-distance-cost bus) 20)
+        (= (per-unit-distance-cost minibus) 10)
+        (= (per-unit-distance-cost truck) 40)
+        (= (per-unit-distance-time bus) 4)
+        (= (per-unit-distance-time minibus) 3)
+        (= (per-unit-distance-time truck) 7)
+        (= (per-unit-distribution-cost relief-goods) 20)
+        (= (total-cost) 0)
+        (= (time) 0)
+        (= (plan-length) 0)
+    )
+    (:goal
+        (and
+            (not (needs-evacuation affectedC))
+            (not (needs-medical-support affectedD))
+            (not (needs-rescue affectedD))
+            (= (person-to-evacuate affectedC) 0)
+            (= (needs-resource affectedD relief-goods) 0)
+            (= (capacity bus) 40)
+            (= (capacity minibus) 15)
+            (= (capacity truck) 500)
+        )
+    )
+)
